@@ -2,7 +2,7 @@
 Name=Thought Train
 Comment=Capture and categorize your thoughts with AI
 Exec=/home/zdravko/Desktop/thought-train/target/debug/thought-train
-Icon=accessories-text-editor
+Icon=/home/zdravko/Desktop/thought-train/logo.png
 Terminal=false
 Type=Application
 Categories=Utility;

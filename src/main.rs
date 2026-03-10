@@ -1,26 +1,29 @@
 mod ai;
+mod app;
 mod db;
-mod ui;
 
-use libadwaita as adw;
-use adw::prelude::*;
+use app::ThoughtTrain;
 
-fn main() {
-    let app = adw::Application::builder()
-        .application_id("dev.thought-train.app")
-        .flags(gtk4::gio::ApplicationFlags::HANDLES_COMMAND_LINE)
-        .build();
+fn main() -> iced::Result {
+    let icon = load_window_icon();
 
-    // On activate (first launch or re-activation), build/present the UI
-    app.connect_activate(|app| {
-        ui::build_ui(app);
-    });
+    let mut app = iced::application(ThoughtTrain::title, ThoughtTrain::update, ThoughtTrain::view)
+        .theme(ThoughtTrain::theme)
+        .window_size((750.0, 580.0));
 
-    // Handle command-line so second instance just activates the first
-    app.connect_command_line(|app, _| {
-        app.activate();
-        0.into()
-    });
+    if let Some(icon) = icon {
+        app = app.window(iced::window::Settings {
+            icon: Some(icon),
+            ..Default::default()
+        });
+    }
 
-    app.run();
+    app.run_with(ThoughtTrain::new)
+}
+
+fn load_window_icon() -> Option<iced::window::Icon> {
+    let bytes = include_bytes!("../logo.png");
+    let img = image::load_from_memory(bytes).ok()?.to_rgba8();
+    let (w, h) = img.dimensions();
+    iced::window::icon::from_rgba(img.into_raw(), w, h).ok()
 }
