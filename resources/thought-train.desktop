@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Thought Train
+Comment=Capture and categorize your thoughts with AI
+Exec=/home/zdravko/Desktop/thought-train/target/debug/thought-train
+Icon=accessories-text-editor
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=notes;thoughts;ai;categorize;
+StartupWMClass=dev.thought-train.app
